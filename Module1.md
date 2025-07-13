@@ -1,4 +1,4 @@
-Here's a detailed explanation of **Shell** and **Bash**, with examples tailored for a **DevOps perspective**.
+# Module - 1
 
 ---
 
