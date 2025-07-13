@@ -1,5 +1,4 @@
-Here's a **comprehensive Bash Scripting syllabus tailored for a DevOps Engineer**, covering everything from beginner to advanced topics, including real-world automation, monitoring, and CI/CD use cases.
-
+# **Comprehensive Bash Scripting syllabus tailored for a DevOps Engineer**
 ---
 
 ## 🧾 **Bash Scripting Syllabus for DevOps Engineers**
