@@ -192,8 +192,9 @@ echo "Hi $username, welcome to DevOps world!"
 | `set -x`   | Debug script execution                  |
 
 ---
+## Variable in Shell
 
-Sure Deepak! Let's dive into **Variables in Shell Scripting**, including **Local and Environment Variables**, with clear examples and detailed explanations of **all relevant parameters and use cases**.
+Let's dive into **Variables in Shell Scripting**, including **Local and Environment Variables**, with clear examples and detailed explanations of **all relevant parameters and use cases**.
 
 ---
 
