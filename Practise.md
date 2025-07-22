@@ -330,8 +330,75 @@ deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$
 ```
 
 6. Declare and access elements of an array.
+
+```bash
+#!/bin/bash
+
+a=(1 2 3 4 5)
+for i in "${a[@]}"; do
+  echo "Element: $i"
+done
+echo "All elements: ${a[@]}"
+echo "Number of elements: ${#a[@]}"
+echo "First element: ${a[0]}"
+echo "Last element: ${a[-1]}"
+echo "Array indices: ${!a[@]}"
+echo "Array as string: ${a[*]}"
+echo "Array as string (with quotes): ${a[@]}"
+echo "Array length using length operator: ${#a[*]}"
+echo "Array length using length operator (with quotes): ${#a[@]}"
+echo "Array elements in reverse order (using loop):"
+for (( idx=${#a[@]}-1; idx>=0; idx-- )); do
+  echo "Element in reverse: ${a[$idx]}"
+done
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Element: 1
+Element: 2
+Element: 3
+Element: 4
+Element: 5
+All elements: 1 2 3 4 5
+Number of elements: 5  
+First element: 1        
+Last element: 5
+Array indices: 0 1 2 3 4
+Array as string: 1 2 3 4 5
+Array as string (with quotes): 1 2 3 4 5
+Array length using length operator: 5
+Array length using length operator (with quotes): 5
+Array elements in reverse order (using loop):
+Element in reverse: 5
+Element in reverse: 4
+Element in reverse: 3
+Element in reverse: 2
+Element in reverse: 1
+```
+
 7. Write a script using single quotes and double quotes, showing difference.
+``` Refer Module 1 notes ```
 8. Read two inputs from the user and display their sum.
+
+```bash
+#!/bin/bash
+
+read -p "Enter first number: " a
+read -p "Enter second number: " b
+
+c=$(( a + b ))
+
+echo "The sum of $a and $b is: $c"
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Enter first number: 2
+Enter second number: 3
+The sum of 2 and 3 is: 5
+```
+
 9. Use backticks to store the output of `date` and print it.
 10. Comment all lines in a script using `#`.
 11. Write a script that returns 1 if a condition is false.
