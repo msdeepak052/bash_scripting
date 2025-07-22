@@ -7,21 +7,247 @@ Here's a **module-wise collection of 15 shell scripting coding questions** per m
 ## ✅ **Module 1: Introduction to Shell and Bash – 15 Coding Questions**
 
 1. Write a script to print "Hello DevOps" using `#!/bin/bash`.
+
+<img width="1160" height="731" alt="image" src="https://github.com/user-attachments/assets/7c280954-72d0-47df-9657-8cb59c66ca69" />
+
 2. Create a script that prints your current shell and username.
+
+<img width="1143" height="789" alt="image" src="https://github.com/user-attachments/assets/5a8bc937-88ea-4c2a-948f-93a1b2facede" />
+
 3. Print the list of all shells available in the system.
+
+```bash
+#!/bin/bash
+
+# Get the list of shells from /etc/shells
+
+while IFS= read -r line; do
+    echo "$line"
+done < /etc/shells
+```
+```bash
+/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+# /etc/shells: valid login shells
+/bin/sh
+/bin/bash
+/usr/bin/bash
+/bin/rbash
+/usr/bin/rbash
+/usr/bin/sh
+/bin/dash
+/usr/bin/dash
+/usr/bin/tmux
+/usr/bin/screen
+```
+
 4. Create a script that prints the current directory using a command shortcut.
+
+<img width="1057" height="564" alt="image" src="https://github.com/user-attachments/assets/5af485b0-12e4-4cc8-8d9a-2858e25ed06e" />
+
 5. Create a script with incorrect shebang and observe behavior.
+
+<img width="980" height="553" alt="image" src="https://github.com/user-attachments/assets/9b0f4772-6a87-49d5-808e-cdf5c03a3e6e" />
+
 6. Use history expansion to repeat the last command in a script.
 7. Display script name and number of arguments passed.
-8. Write a script to display current shell type using `$SHELL`.
-9. Show all environment variables from a script.
-10. Use alias in a script to replace `ls -l` with `ll`.
-11. Create a script and run it with `bash script.sh` and `./script.sh`. Observe differences.
-12. Store the output of `pwd` in a variable and print it.
-13. Write a script to check whether the current shell is interactive or not.
-14. Use `basename` and `dirname` to get filename and path from a full path.
-15. 🧑‍💼 **Real-time**: Create a bootstrap shell script that prints basic system info like hostname, IP, OS, shell.
 
+```bash
+#!/bin/bash
+
+echo "Script Name : $0"
+echo "Number of arguments : $#"
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Script Name : ./test.sh
+Number of arguments : 0
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh Deepak
+Script Name : ./test.sh
+Number of arguments : 1
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ 
+```
+
+8. Write a script to display current shell type using `$SHELL`.
+
+``` Refer Question 2 ```
+
+9. Show all environment variables from a script.
+
+```bash
+#!/bin/bash
+
+echo "Environment Variables: $(env)" | sort
+```
+
+10. Use alias in a script to replace `ls -l` with `ll`.
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ alias ll='ls -lhrt'
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ll
+total 4.0K
+-rwxrwxrwx 1 deepak deepak 248 Jul 11 18:10 data.txt
+-rwxrwxrwx 1 deepak deepak 385 Jul 11 18:44 sales.csv   
+-rw-r--r-- 1 deepak deepak 187 Jul 11 19:36 5fields.txt 
+-rwxrwxrwx 1 deepak deepak  96 Jul 11 19:42 expenses.csv
+-rwxrwxrwx 1 deepak deepak  99 Jul 13 23:30 students.csv
+-rwxrwxrwx 1 deepak deepak 137 Jul 14 00:13 unique.csv
+-rwxrwxrwx 1 deepak deepak 230 Jul 14 00:19 employees.csv
+-rwxrwxrwx 1 deepak deepak 144 Jul 14 00:22 salary.csv
+-rwxrwxrwx 1 deepak deepak 383 Jul 14 00:34 ip.txt
+-rwxrwxrwx 1 deepak deepak 107 Jul 14 00:37 awk1.sh
+-rwxrwxrwx 1 deepak deepak 128 Jul 15 23:20 test.py
+-rwxrwxrwx 1 deepak deepak  56 Jul 22 10:31 test.sh
+```
+
+11. Create a script and run it with `bash script.sh` and `./script.sh`. Observe differences.
+
+ Let's walk through this step-by-step to understand the differences between:
+
+* Running a script via: `bash script.sh`
+* Running a script via: `./script.sh`
+
+---
+
+### 📝 Step 1: Create a test script
+
+Create a script named `script.sh` with the following content:
+
+```bash
+#!/bin/bash
+
+echo "Current shell: $SHELL"
+echo "Script executed with: $0"
+```
+
+Save the file in your directory.
+
+---
+
+### 🧪 Step 2: Run the script both ways
+
+#### ✅ Method 1: `bash script.sh`
+
+```bash
+bash script.sh
+```
+
+#### ✅ Method 2: `./script.sh`
+
+First, make it executable:
+
+```bash
+chmod +x script.sh
+./script.sh
+```
+
+---
+
+### 🔍 Expected Output Comparison
+
+#### Output of `bash script.sh`:
+
+```
+Current shell: /bin/bash
+Script executed with: script.sh
+```
+
+#### Output of `./script.sh`:
+
+```
+Current shell: /bin/bash
+Script executed with: ./script.sh
+```
+
+---
+
+### ⚙️ What's the Difference?
+
+| Aspect                     | `bash script.sh`                              | `./script.sh`                                      |
+| -------------------------- | --------------------------------------------- | -------------------------------------------------- |
+| **Interpreter**            | Uses explicitly `bash`, regardless of shebang | Uses shebang (`#!/bin/bash`) to decide interpreter |
+| **\$0 value**              | `script.sh`                                   | `./script.sh`                                      |
+| **Execution**              | Script run **as a parameter** to bash         | Script run **as an executable file**               |
+| **Exec permission needed** | ❌ Not needed                                  | ✅ Required (`chmod +x`)                            |
+| **Overrides shebang?**     | ✅ Yes                                         | ❌ No, it uses it                                   |
+
+---
+
+### ✅ Summary
+
+* Use `bash script.sh` if you're debugging or testing with a specific shell.
+* Use `./script.sh` to execute the script like a standalone program (respects shebang).
+* Both are valid, but behave slightly differently in how they pass arguments and set `$0`.
+
+
+
+12. Store the output of `pwd` in a variable and print it.
+
+```bash
+#!/bin/bash
+
+current_working_directory=$(pwd)
+echo "Current Working Directory: $current_working_directory"
+````
+
+13. Write a script to check whether the current shell is interactive or not.
+
+```bash
+#!/bin/bash
+
+# Check if shell is interactive
+case $- in
+  *i*) 
+    echo "The shell is interactive."
+    ;;
+  *)  
+    echo "The shell is NOT interactive."
+    ;;
+esac
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+The shell is NOT interactive.
+```
+
+14. Use `basename` and `dirname` to get filename and path from a full path.
+
+```bash
+#!/bin/bash
+
+# Check if shell is interactive
+directory="$(pwd)/test.sh"
+echo "Current directory: $directory"
+
+echo "File: $(basename $directory)"
+echo "Path: $(dirname $directory)"
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Current directory: /mnt/c/Users/yadav.deepak/Desktop/practise/test.sh
+File: test.sh
+Path: /mnt/c/Users/yadav.deepak/Desktop/practise
+```
+
+15. 🧑‍💼 **Real-time**: Create a bootstrap shell script that prints basic system info like hostname, IP, OS, shell.
+```bash
+#!/bin/bash
+
+echo "Hostname: $(hostname)"
+echo "IP Address: $(hostname -I | awk '{print $1}')"
+echo "Operating System: $(uname -s)"
+echo "Kernel Version: $(uname -r)"
+echo "Shell Type: $SHELL"
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Hostname: LG7G0DB3
+IP Address: 172.25.99.183
+Operating System: Linux
+Kernel Version: 6.6.87.2-microsoft-standard-WSL2
+Shell Type: /bin/bash
+```
 ---
 
 ## ✅ **Module 2: Basic Shell Scripting – 15 Coding Questions**
