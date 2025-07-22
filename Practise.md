@@ -253,10 +253,82 @@ Shell Type: /bin/bash
 ## ✅ **Module 2: Basic Shell Scripting – 15 Coding Questions**
 
 1. Write a script to read your name and print "Welcome, \[name]".
-2. Define a local variable and print it.
+
+```bash
+#!/bin/bash
+
+read -p "Enter your name: " name
+if [ -z "$name" ]; then
+  echo "No name provided. Exiting."
+  exit 1
+fi
+echo "Hello, $name! Welcome to the script."
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Enter your name: 
+No name provided. Exiting.
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Enter your name: Deepak
+Hello, Deepak! Welcome to the script.
+```
+
+2. Define a local variable and print it
+
+```bash
+#!/bin/bash
+
+name=$1
+if [ -z "$name" ]; then
+  echo "No name provided. Exiting."
+  exit 1
+fi
+echo "Hello, $name! Welcome to the script."
+```
+
+<img width="918" height="153" alt="image" src="https://github.com/user-attachments/assets/39121415-3d6a-44ee-8fdf-3bd6f790fa9a" />
+
+
 3. Export an environment variable and access it in a sub-shell.
+
+<img width="1147" height="744" alt="image" src="https://github.com/user-attachments/assets/b9e5761b-b977-4390-aeb3-5519dd94db2a" />
+
+
 4. Add two integer variables and print the result.
+
+```bash
+#!/bin/bash
+
+a=$1
+b=$2
+
+c=$(( a + b ))
+
+echo "The sum of $a and $b is: $c"
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh 2 3
+The sum of 2 and 3 is: 5
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ 
+```
+
 5. Store a string in a variable and find its length.
+
+```bash
+#!/bin/bash
+
+string="Hello, World!"
+echo "Length of the string : ${#string} "
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Length of the string : 13 
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ 
+```
+
 6. Declare and access elements of an array.
 7. Write a script using single quotes and double quotes, showing difference.
 8. Read two inputs from the user and display their sum.
