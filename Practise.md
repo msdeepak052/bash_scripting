@@ -400,12 +400,257 @@ The sum of 2 and 3 is: 5
 ```
 
 9. Use backticks to store the output of `date` and print it.
+
+```Refer notes```
+
 10. Comment all lines in a script using `#`.
+
+```Refer notes```
+
 11. Write a script that returns 1 if a condition is false.
+
+```bash
+#!/bin/bash
+
+read -p "Enter first number: " a
+read -p "Enter second number: " b
+
+c=$(( a + b ))
+
+echo "The sum of $a and $b is: $c"
+
+if (( c > 0 )); then
+    echo "The result is positive."
+   
+else
+    echo "The result is not positive."
+    exit 1
+fi      
+
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh 
+Enter first number: 2
+Enter second number: 3
+The sum of 2 and 3 is: 5
+The result is positive.
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh 
+Enter first number: -1
+Enter second number: -2
+The sum of -1 and -2 is: -3
+The result is not positive.
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ 
+```
+
 12. Check the exit status of the `ls` command.
+
+```bash
+#!/bin/bash
+
+ls1=$(ls /etc)  
+
+echo "Status of last command 1: $?"
+
+ls2=$(ls /nonexistent_directory 2>/dev/null)
+
+echo "Status of last command 2: $?"
+
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Status of last command 1: 0
+Status of last command 2: 2
+```
+
 13. Accept a file name as input and display if it exists or not.
+
+```bash
+#!/bin/bash
+
+read -p "Enter the path to the directory with filename: " dir_path
+read -p "Enter the filename to search for: " file_name
+
+found=0
+while IFS= read -r file; do
+    if [[ "$file" == "$file_name" ]]; then
+        echo "Found: $file"
+        found=1
+        break
+    fi
+done < <(ls "$dir_path")
+
+if [[ $found -eq 1 ]]; then
+    echo "File '$file_name' exists in directory '$dir_path'."
+else
+    echo "File '$file_name' not found in directory '$dir_path'."
+fi
+
+```
+
+```bash
+#!/bin/bash
+
+read -p "Enter the path to the directory with filename: " dir_path
+read -p "Enter the filename to search for: " file_name
+
+# List files and loop through each line
+ls "$dir_path" | while IFS= read -r file; do
+    if [[ "$file" == "$file_name" ]]; then
+        echo "Found: $file"
+    else
+        echo "Not found: $file"
+    fi
+done
+
+```
+
+```bash
+#!/bin/bash
+
+read -p "Enter the path to the directory: " dir_path
+read -p "Enter the filename to search for: " file_name
+
+found=0
+while IFS= read -r file; do
+    if [[ "$(basename "$file")" == "$file_name" ]]; then
+        echo "Found: $file"
+        found=1
+    fi
+done < <(find "$dir_path" -type f)
+
+if [[ $found -eq 0 ]]; then
+    echo "File not found."
+fi
+
+```
+
+``` Concepts ```
+
+ > Understanding `<`, `< <(...)`, and `IFS` will make your Bash scripting much more powerful and reliable.
+
+---
+
+### ✅ `IFS` – Internal Field Separator
+
+#### 📌 What it is:
+
+* `IFS` is a **special shell variable** (not a keyword) used by Bash to **split strings** into words/tokens.
+
+#### 🔧 Default value:
+
+```bash
+IFS=" \t\n"  # space, tab, newline
+```
+
+#### 🔄 When reading files:
+
+If you don’t override `IFS`, Bash will split lines on spaces/tabs too — which may **break filenames** with spaces.
+
+#### ✅ Usage in your script:
+
+```bash
+while IFS= read -r line; do ...
+```
+
+* `IFS=` → disables word splitting completely.
+* `read -r` → disables interpretation of backslashes (`\`).
+* ✅ This is **best practice** when reading lines or filenames reliably.
+
+---
+
+### ✅ `<` vs `< <(...)` vs `<<`
+
+| Syntax          | Name                 | Use Case                                                                |
+| --------------- | -------------------- | ----------------------------------------------------------------------- |
+| `cmd < file`    | Input redirection    | Feed the contents of `file` as input to `cmd` or a loop                 |
+| `cmd < <(...)`  | Process substitution | Feed the output of a command (like `find`) into another command or loop |
+| `<<EOF ... EOF` | Here Document        | Provide multiline **inline input** in a script                          |
+
+---
+
+### 🔍 Examples
+
+#### 1️⃣ `<` – Input from a file
+
+```bash
+while read line; do
+    echo "$line"
+done < myfile.txt
+```
+
+✅ Reads from a file line by line.
+
+---
+
+#### 2️⃣ `< <(...)` – Process substitution
+
+```bash
+while read line; do
+    echo "$line"
+done < <(ls /tmp)
+```
+
+✅ Takes **output** of `ls /tmp` and feeds it to the loop.
+
+---
+
+#### 3️⃣ `<<` – Here document
+
+```bash
+cat <<EOF
+Hello Deepak
+This is a test.
+EOF
+```
+
+✅ Used when you want to pass **multiple lines of text** as input.
+
+---
+
+### 🔑 Summary
+
+| Symbol     | Description                                  | Typical Use Case                                 |
+| ---------- | -------------------------------------------- | ------------------------------------------------ |
+| `< file`   | Input redirection                            | Read from a file                                 |
+| `< <(...)` | **Process substitution**                     | Read from **command output**                     |
+| `<<EOF`    | **Here document** (inline multiline content) | Simulate file input or feed data to a command    |
+| `IFS`      | Word-splitting behavior for `read` etc.      | Set to empty (`IFS=`) to prevent unwanted splits |
+
+---
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Enter the path to the directory with filename: /mnt/c/Users/yadav.deepak/Desktop/practise
+Enter the filename to search for: sales.csv
+Found: sales.csv
+File 'sales.csv' exists in directory '/mnt/c/Users/yadav.deepak/Desktop/practise'.
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Enter the path to the directory with filename: /mnt/c/Users/yadav.deepak/Desktop/practise
+Enter the filename to search for: abc.txt
+File 'abc.txt' not found in directory '/mnt/c/Users/yadav.deepak/Desktop/practise'.
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$
+```
+
 14. Accept multiple inputs using `read -p` in a single line.
+
+```bash
+#!/bin/bash
+
+read -p "Enter name and age (e.g., John 30): " name age
+echo "Hello, $name! You are $age years old."
+```
+
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Enter name and age (e.g., John 30): Deepak 25
+Hello, Deepak! You are 25 years old.
+```
+
 15. 🧑‍💼 **Real-time**: Script that takes app name and port from user, and prints a simulated deployment message.
+
+```Similar to above question```
 
 ---
 
