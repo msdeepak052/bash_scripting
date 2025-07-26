@@ -657,20 +657,384 @@ Hello, Deepak! You are 25 years old.
 ## ✅ **Module 3: Conditional Statements – 15 Coding Questions**
 
 1. Write a script to check if a number is positive, negative, or zero.
+
+```bash
+#!/bin/bash
+read -p "Enter a number: " n
+echo "You entered: $n"
+if (( n < 0 )); then 
+    echo "Negative number entered."
+elif (( n == 0 )); then 
+    echo "Zero entered."
+else 
+    echo "Positive number entered."
+fi
+
+```
+
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter a number: 0
+You entered: 0
+Zero entered.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter a number: -1
+You entered: -1
+Negative number entered.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter a number: 2
+You entered: 2
+Positive number entered.
+```
+
 2. Check if a file exists using `-f`.
+```bash
+#!/bin/bash
+read -p "Enter a file name: " file
+if [[ -f $file ]]; then
+    echo "File $file exists."
+else
+    echo "File $file does not exist."
+fi
+
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter a file name: test.sh
+File test.sh exists.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter a file name: testt.sh
+File testt.sh does not exist.
+```
+
 3. Check if a directory exists using `-d`.
+
+```bash
+#!/bin/bash
+# This script checks if a given directory exists
+read -p "Enter the directory: " dir
+
+if [[ -d $dir ]]; then
+    echo "Directory $dir exists."
+else
+    echo "Directory $dir does not exist."
+fi
+
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh
+Enter the directory: /mnt/d/Study/Linux/shell Scripting/Scripts
+Directory /mnt/d/Study/Linux/shell Scripting/Scripts exists.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the directory: /mnt/d/Study/Linux/shell Scripting/Scripts_Not_Exist
+Directory /mnt/d/Study/Linux/shell Scripting/Scripts_Not_Exist does not exist.
+```
+
 4. Compare two strings for equality and inequality.
+
+```bash
+#!/bin/bash
+# This script compares two strings entered by the user.
+read -p "Enter the String 1: " str1
+read -p "Enter the String 2: " str2
+
+if [[ "$str1" == "$str2" ]]; then
+    echo "The strings are equal."
+else
+    echo "The strings are not equal."
+fi
+
+```
+
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the String 1: ABC
+Enter the String 2: ABC
+The strings are equal.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the String 1: ABC
+Enter the String 2: CBA
+The strings are not equal.
+```
+  
 5. Compare two numbers using `-eq`, `-gt`, `-lt`.
+```bash
+#!/bin/bash
+# This script compares two numbers
+read -p "Enter the Num 1: " num1
+read -p "Enter the Num 2: " num2
+
+if [[ $num1 -eq $num2 ]]; then
+    echo "Both numbers are equal."
+elif [[ $num1 -gt $num2 ]]; then
+    echo "Num 1 is greater than Num 2."
+else
+    echo "Num 2 is greater than Num 1."
+fi
+
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the Num 1: 23
+Enter the Num 2: 12
+Num 1 is greater than Num 2.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the Num 1: 11
+Enter the Num 2: 32
+Num 2 is greater than Num 1.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the Num 1: 11
+Enter the Num 2: 11
+Both numbers are equal.
+```
+
 6. Write a login script: if username == "admin", print "Welcome admin".
+```bash
+#!/bin/bash
+
+read -p "Enter the name : " name
+
+if [[ "$name" == "admin" ]]; then
+    echo "Welcome, $name!"
+else
+    echo "Access denied."
+fi
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the name : admin
+Welcome, admin!
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the name : Deepak
+Access denied.
+```
+
 7. Use `[[ ... ]]` to test a string contains a substring.
+```bash
+#!/bin/bash
+
+str="DevOps with Deepak"
+[[ $str == *Deepak* ]] && echo "Found"
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Found
+```
+
 8. Use `&&` to run a second command only if the first succeeds.
+
+```bash
+#!/bin/bash
+
+str="DevOps with Deepak"
+[[ $str == *Deepak* ]] && echo "Found"
+[[ $str == *NotFound* ]] && echo " Not Found"
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Found
+```
+
 9. Use `||` to provide fallback if a command fails.
+
+```bash
+#!/bin/bash
+
+str="DevOps with Deepak"
+[[ $str == *Deepak* ]] && echo "Found"
+[[ $str == *NotFound* ]] || echo "Not Found"
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Found
+Not Found
+```
+
 10. Use `!` to reverse a condition in an if block.
+```bash
+#!/bin/bash
+
+str="DevOps with Deepak"
+if [[ $str == *Deepak* ]] ; then 
+    echo "Found"
+elif [[ $str != *DevOps* ]] ; then 
+    echo "Not Found DevOps"
+else
+    echo "Nothing Found"
+fi
+
+```
+
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Found
+^Cepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ^C
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Nothing Found
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Not Found DevOps
+```
+
 11. Check if a file is readable and writable.
+
+```bash
+#!/bin/bash
+
+if [[ -r testt.sh && -w test.sh ]]; then
+    echo "The file test.sh is readable and writable."
+else
+    echo "The file test.sh is not readable or writable."
+fi
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+The file test.sh is readable and writable.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+The file test.sh is not readable or writable.
+```
+
 12. Write a script to compare two user-input numbers and print the larger.
+```bash
+#!/bin/bash
+
+read -p "Enter the num1 : " num1
+read -p "Enter the num2 : " num2
+
+((( num1 > num2 )) && echo "Number1 $num1 is greater") || \
+((( num1 < num2 )) && echo "Number2 $num2 is greater") || \
+echo "Both numbers are equal"
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the num1 : 11
+Enter the num2 : 11
+Both numbers are equal
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the num1 : 22
+Enter the num2 : 11
+Number1 22 is greater
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the num1 : 11
+Enter the num2 : 22
+Number2 22 is greater
+```
+
 13. Write a script to print a grade based on score using `if-elif-else`.
+```bash
+#!/bin/bash
+
+read -p "Enter your score (0-100): " score
+
+if [[ ! "$score" =~ ^[0-9]+$ ]]; then
+    echo "Invalid input. Please enter a numeric score."
+    exit 1
+
+# Check if score is in the valid range
+elif (( score < 0 || score > 100 )); then
+    echo "Invalid score. Please enter a value between 0 and 100."
+    exit 1
+
+# Determine the grade based on the score
+elif (( score >= 90 && score <= 100 )); then
+    echo "Grade: A"
+elif (( score >= 80 )); then
+    echo "Grade: B"
+elif (( score >= 70 )); then
+    echo "Grade: C"
+elif (( score >= 60 )); then
+    echo "Grade: D"
+else 
+    echo "Grade: F"
+fi
+
+```
+
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter your score (0-100): 
+Invalid input. Please enter a numeric score.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter your score (0-100): 200
+Invalid score. Please enter a value between 0 and 100.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter your score (0-100): 100
+Grade: A
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter your score (0-100): 45
+Grade: F
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter your
+```
 14. Use `case` statement to match input with options: start, stop, restart.
+```bash
+#!/bin/bash
+
+read -p "Enter action (start | stop | restart): " action
+
+case "$action" in
+    start)
+        echo "Service is starting..."
+        ;;
+    stop)
+        echo "Service is stopping..."
+        ;;
+    restart)
+        echo "Service is restarting..."
+        ;;
+    *)
+        echo "Invalid action. Please enter start, stop, or restart."
+        ;;
+esac
+
+```
+
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter action (start | stop | restart): start
+Service is starting...
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter action (start | stop | restart): restart
+Service is restarting...
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter action (start | stop | restart): stop
+Service is stopping...
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter action (start | stop | restart): WrongInput
+Invalid action. Please enter start, stop, or restart.
+```
+
 15. 🧑‍💼 **Real-time**: Validate if a config file exists, is readable, and has a non-zero size.
+```bash
+#!/bin/bash
+
+read -p "Enter the config file path: " config_file
+
+if [[ -f "$config_file" && -r "$config_file" && -s "$config_file" ]]; then
+    echo " '$config_file' exists, is a regular readable file, and is not empty."
+else
+    echo " File check failed:"
+    [[ ! -f "$config_file" ]] && echo "   - File does not exist or is not a regular file."
+    [[ -f "$config_file" && ! -r "$config_file" ]] && echo "   - File is not readable."
+    [[ -f "$config_file" && -r "$config_file" && ! -s "$config_file" ]] && echo "   - File is empty."
+fi
+
+```
+```bash
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the config file path: test.sh
+ 'test.sh' exists, is a regular readable file, and is not empty.
+deepak@DeepakRK:/mnt/d/Study/Linux/shell Scripting/Scripts$ ./test.sh 
+Enter the config file path: rest.sh
+ File check failed:
+   - File does not exist or is not a regular file.
+```
+| Flag | Meaning                                    | Applies To           |
+| ---- | ------------------------------------------ | -------------------- |
+| `-e` | File exists                                | File (any type)      |
+| `-f` | File exists **and** is a regular file      | File                 |
+| `-r` | File is readable                           | File                 |
+| `-s` | File size is greater than zero (non-empty) | File                 |
+| `-z` | String is empty                            | **String**, not file |
 
 ---
 
