@@ -1041,20 +1041,343 @@ Enter the config file path: rest.sh
 ## ✅ **Module 4: Loops and Iterations – 15 Coding Questions**
 
 1. Print numbers 1 to 10 using a `for` loop.
+```bash
+#!/bin/bash
+
+for i in {1..10};
+do
+  echo "$i"
+done  
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+
 2. Print numbers 10 to 1 using a C-style `for ((...))` loop.
+```bash
+#!/bin/bash
+
+for((i=10; i>0; i--))
+do
+  echo "$i"
+done  
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+```
+
 3. Loop over a list of names and print each.
+```bash
+#!/bin/bash
+
+for i in "Apple" "Banana" "Cherry";
+do
+  echo "Fruit: $i"
+done
+echo "All fruits listed."
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Fruit: Apple
+Fruit: Banana
+Fruit: Cherry
+All fruits listed.
+```
+
 4. Loop through an array and print elements.
+```bash
+#!/bin/bash
+
+array=("Apple" "Banana" "Cherry")
+for i in "${array[@]}";
+do
+  echo "Fruit: $i"
+done
+echo "All fruits listed."
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Fruit: Apple
+Fruit: Banana
+Fruit: Cherry
+All fruits listed.
+```
 5. Use a `while` loop to print numbers from 1 to 5.
+```bash
+#!/bin/bash
+i=1
+while ((i<=5));
+do
+  echo "Iteration $i"
+  ((i++))
+done
+echo "Loop finished"
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Iteration 1
+Iteration 2
+Iteration 3
+Iteration 4
+Iteration 5
+Loop finished
+```
+
 6. Use an `until` loop to wait until a variable reaches 10.
+```bash
+#!/bin/bash
+
+count=1
+
+until ((count == 10)); do
+  echo "Current count: $count"
+  ((count++))
+  sleep 1  # optional: to slow it down for observation
+done
+
+echo "Count reached 10"
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Current count: 1
+Current count: 2
+Current count: 3
+Current count: 4
+Current count: 5
+Current count: 6
+Current count: 7
+Current count: 8
+Current count: 9
+Count reached 10
+```
+
 7. Use `break` to exit a loop when number equals 5.
+```bash
+#!/bin/bash
+
+for i in {1..10};
+do
+  if ((i==5)); then
+    echo "i is $i hence exiting"
+    break
+    exit 1
+  fi
+  echo "Iteration $i"
+  sleep 1
+  
+done
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Iteration 1
+Iteration 2
+Iteration 3
+Iteration 4
+i is 5
+```
+
 8. Use `continue` to skip printing number 3.
+```bash
+#!/bin/bash
+
+for i in {1..10};
+do
+  if ((i==5)); then
+    echo "i is $i hence exiting"
+    break
+    exit 1
+  elif ((i==3)); then
+    echo "i is $i hence continuing"
+    continue
+  else
+    echo "Iteration $i"
+    sleep 1
+  fi
+done
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Iteration 1
+Iteration 2
+i is 3 hence continuing
+Iteration 4
+i is 5 hence exiting
+```
+
 9. Loop through all files in current directory.
+```bash
+#!/bin/bash
+
+for file in *; do
+  if [ -f "$file" ]; then
+    echo "Found file: $file"
+  fi
+done
+# or
+
+# Redirect the output of ls into the while loop using read
+while read -r file; do
+  if [ -f "$file" ]; then
+    echo "File: $file"
+  fi
+done < <(ls -1)
+
+
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Found file: 5fields.txt  
+Found file: awk1.sh      
+Found file: data.txt     
+Found file: employees.csv
+Found file: expenses.csv 
+Found file: ip.txt       
+Found file: salary.csv   
+Found file: sales.csv    
+Found file: students.csv
+Found file: test.py
+Found file: test.sh
+Found file: unique.csv
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Found file: 5fields.txt
+Found file: awk1.sh
+Found file: data.txt
+Found file: employees.csv
+Found file: expenses.csv
+Found file: ip.txt
+Found file: salary.csv
+Found file: sales.csv
+Found file: students.csv
+Found file: test.py
+Found file: test.sh
+Found file: unique.csv
+File: 5fields.txt
+File: awk1.sh
+File: data.txt
+File: employees.csv
+File: expenses.csv
+File: ip.txt
+File: salary.csv
+File: sales.csv
+File: students.csv
+File: test.py
+File: test.sh
+File: unique.csv
+```
+
 10. Loop through command output of `ls` and print file names.
+> refer above examples
 11. Use a loop to create 5 empty files: file1.txt to file5.txt.
+```bash
+#!/bin/bash
+
+for i in {1..5}; do
+  touch "file$i.txt"
+done
+
+```
+
+
 12. Print even numbers from 1 to 10 using a loop.
+```bash
+#!/bin/bash
+
+even_nos=""
+for i in {1..10};
+do
+  if ((i%2==0)); then
+    even_nos+="$i "
+  fi
+done
+echo "Even Numbers : $even_nos" 
+
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Even Numbers : 2 4 6 8 10
+```
+
 13. Sum of numbers 1 to 100 using loop.
+```bash
+#!/bin/bash
+sum=0
+for i in {1..100};
+do
+  sum=$((sum +i))
+done
+echo "Sum : $sum"
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+Sum : 5050
+```
+
 14. Delete all `.tmp` files in current directory using loop.
+```bash
+#!/bin/bash
+
+for file in *.tmp;
+do
+  if [[ -f $file ]]; then
+    rm -rf $file
+    echo "$file deleted ..."
+  fi
+done
+
+```
+```bash
+deepak@LG7G0DB3:/mnt/c/Users/yadav.deepak/Desktop/practise$ ./test.sh
+testt.tmp deleted ...
+```
+
 15. 🧑‍💼 **Real-time**: Monitor a directory every 5 sec (use `while` + `sleep`) and print if new files are added.
+
+```bash
+#!/bin/bash
+
+# Directory to monitor
+DIR="."
+
+# Get initial list of files
+prev_files=$(ls "$DIR")
+
+while true; do
+  sleep 5
+  curr_files=$(ls "$DIR")
+
+  # Compare previous and current file list
+  new_files=$(comm -13 <(echo "$prev_files" | sort) <(echo "$curr_files" | sort))
+
+  if [ -n "$new_files" ]; then
+    echo "New files added:"
+    echo "$new_files"
+  fi
+
+  # Update the previous file list
+  prev_files="$curr_files"
+done
+
+```
 
 ---
 
